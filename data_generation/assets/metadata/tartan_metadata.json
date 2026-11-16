@@ -1,0 +1,476 @@
+{
+    "figure_8_morning_2023-09-12-10-28-04": {
+        "size_bytes": 2886518804,
+        "duration": 10.854907,
+        "top_speed": 0.008271577371804464,
+        "environment": "gupta"
+    },
+    "figure_8_2023-09-13-17-23-35": {
+        "size_bytes": 9262197401,
+        "duration": 33.537555,
+        "top_speed": 0.06321298701517115,
+        "environment": "figure_8"
+    },
+    "2023-11-14-14-24-21_gupta": {
+        "size_bytes": 19072668988,
+        "duration": 70.171025,
+        "top_speed": 8.151904883417666,
+        "environment": "gupta"
+    },
+    "2023-11-14-14-26-22_gupta": {
+        "size_bytes": 45890650512,
+        "duration": 172.64479,
+        "top_speed": 9.302992851447387,
+        "environment": "gupta"
+    },
+    "2023-11-14-14-45-20_gupta": {
+        "size_bytes": 44333025094,
+        "duration": 164.017324,
+        "top_speed": 6.973480973694436,
+        "environment": "gupta"
+    },
+    "figure_8_to_turnpike_2023-09-12-12-22-45": {
+        "size_bytes": 84174763300,
+        "duration": 300.412747,
+        "top_speed": 10.083687716037993,
+        "environment": "figure_8"
+    },
+    "2023-11-14-14-34-53_gupta": {
+        "size_bytes": 70135105307,
+        "duration": 263.091484,
+        "top_speed": 7.750804471692222,
+        "environment": "gupta"
+    },
+    "2023-11-14-15-22-01_figure_8": {
+        "size_bytes": 63411144578,
+        "duration": 250.020744,
+        "top_speed": 7.574194745406974,
+        "environment": "figure_8"
+    },
+    "2023-11-02-16-00-43_down_meadows": {
+        "size_bytes": 75282832642,
+        "duration": 290.105582,
+        "top_speed": 6.86748826199785,
+        "environment": "turnpike"
+    },
+    "2023-11-14-14-52-22_gupta": {
+        "size_bytes": 90495931328,
+        "duration": 335.448919,
+        "top_speed": 9.814824390252165,
+        "environment": "gupta"
+    },
+    "2023-10-26-15-32-25_turnpike_warehouse_fall": {
+        "size_bytes": 117071990526,
+        "duration": 442.118913,
+        "top_speed": 12.49086188222475,
+        "environment": "turnpike"
+    },
+    "figure_8_2023-09-14-11-37-49": {
+        "size_bytes": 102499432058,
+        "duration": 361.531746,
+        "top_speed": 5.540420916144322,
+        "environment": "figure_8"
+    },
+    "2023-11-14-15-11-49_rough_rider_turnpike_loop": {
+        "size_bytes": 129216126402,
+        "duration": 468.302692,
+        "top_speed": 11.768346319846824,
+        "environment": "rough_rider"
+    },
+    "figure_8_2023-09-13-17-07-51": {
+        "size_bytes": 147498109320,
+        "duration": 536.567883,
+        "top_speed": 6.909597964013766,
+        "environment": "figure_8"
+    },
+    "2023-11-14-15-02-21_figure_8": {
+        "size_bytes": 138626542937,
+        "duration": 509.274712,
+        "top_speed": 11.249924279973447,
+        "environment": "figure_8"
+    },
+    "figure_8_2023-09-14-12-48-02": {
+        "size_bytes": 48346899073,
+        "duration": 494.359706,
+        "top_speed": 9.29774788641963,
+        "environment": "figure_8"
+    },
+    "figure_8_turnpike_2023-09-13-17-47-52": {
+        "size_bytes": 14167434200,
+        "duration": 59.438286,
+        "top_speed": 3.4915703768887143,
+        "environment": "turnpike"
+    },
+    "figure_8_to_turnpike_pt2_2023-09-12-12-28-48": {
+        "size_bytes": 83195355196,
+        "duration": 304.80697299999997,
+        "top_speed": 13.835534212007905,
+        "environment": "figure_8"
+    },
+    "gupta_2023-09-14-10-44-56": {
+        "size_bytes": 1050660447,
+        "duration": 4.422324,
+        "top_speed": 0.06466984112212584,
+        "environment": "gupta"
+    },
+    "gupta_2023-09-14-10-46-16": {
+        "size_bytes": 3002327111,
+        "duration": 11.564827,
+        "top_speed": 0.036335020929956156,
+        "environment": "gupta"
+    },
+    "figure_8_turnpike_2023-09-13-17-40-27": {
+        "size_bytes": 96767801914,
+        "duration": 353.185557,
+        "top_speed": 6.776586999899695,
+        "environment": "turnpike"
+    },
+    "gupta_2023-09-14-14-18-15": {
+        "size_bytes": 650063918,
+        "duration": 4.92198,
+        "top_speed": 0.044945408142268696,
+        "environment": "gupta"
+    },
+    "figure_8_2023-09-13-17-24-26": {
+        "size_bytes": 207958896504,
+        "duration": 748.8511589999999,
+        "top_speed": 9.07708929806018,
+        "environment": "figure_8"
+    },
+    "gupta_2023-09-13-16-57-23": {
+        "size_bytes": 91740468162,
+        "duration": 332.706541,
+        "top_speed": 7.091328503426527,
+        "environment": "gupta"
+    },
+    "gupta_warehouse_2023-09-13-19-12-49": {
+        "size_bytes": 27793478162,
+        "duration": 103.848099,
+        "top_speed": 8.896639620357934,
+        "environment": "turnpike"
+    },
+    "meadows_2023-09-14-11-45-21": {
+        "size_bytes": 11485216750,
+        "duration": 40.852915,
+        "top_speed": 3.5499315161816507,
+        "environment": "figure_8"
+    },
+    "gupta_skydio_2023-09-14-11-03-09": {
+        "size_bytes": 71457440750,
+        "duration": 266.079745,
+        "top_speed": 6.759196048223686,
+        "environment": "gupta"
+    },
+    "meadows_2023-09-14-12-05-05": {
+        "size_bytes": 15709014782,
+        "duration": 56.588851,
+        "top_speed": 2.668524166136538,
+        "environment": "figure_8"
+    },
+    "meadows_2023-09-14-12-07-28": {
+        "size_bytes": 13718997702,
+        "duration": 62.346339,
+        "top_speed": 3.3577266085366095,
+        "environment": "figure_8"
+    },
+    "meadows_2023-09-14-12-17-25": {
+        "size_bytes": 5547734310,
+        "duration": 30.722379,
+        "top_speed": 1.912086665235936,
+        "environment": "figure_8"
+    },
+    "sam_loop_2023-09-27-12-41-22": {
+        "size_bytes": 411514956,
+        "duration": 2.683545,
+        "top_speed": 0.06480621642099507,
+        "environment": "figure_8"
+    },
+    "2023-10-26-14-42-35_turnpike_afternoon_fall": {
+        "size_bytes": 297589513448,
+        "duration": 1160.726426,
+        "top_speed": 14.573705095413729,
+        "environment": "turnpike"
+    },
+    "sam_loop_2023-09-27-12-42-17": {
+        "size_bytes": 6803269156,
+        "duration": 33.048645,
+        "top_speed": 0.03816938871049967,
+        "environment": "figure_8"
+    },
+    "meadows_2023-09-14-12-18-22": {
+        "size_bytes": 64237546379,
+        "duration": 226.969089,
+        "top_speed": 6.349179377053915,
+        "environment": "figure_8"
+    },
+    "meadow_turnpike_2023-09-14-13-35-35": {
+        "size_bytes": 115726020483,
+        "duration": 426.292367,
+        "top_speed": 15.359843926524455,
+        "environment": "turnpike"
+    },
+    "slag_heap_skydio_2023-09-14-12-38-57": {
+        "size_bytes": 4130262982,
+        "duration": 15.131078,
+        "top_speed": 0.052338356520758744,
+        "environment": "slag_heap"
+    },
+    "slag_heap_skydio_2023-09-14-12-36-46": {
+        "size_bytes": 10881112097,
+        "duration": 40.653844,
+        "top_speed": 1.7607206141473721,
+        "environment": "slag_heap"
+    },
+    "slag_heap_2023-09-14-12-23-05": {
+        "size_bytes": 24301629082,
+        "duration": 172.387657,
+        "top_speed": 2.4411147574133967,
+        "environment": "slag_heap"
+    },
+    "gupta_2023-09-14-10-47-09": {
+        "size_bytes": 199897660219,
+        "duration": 781.297351,
+        "top_speed": 9.006547506663997,
+        "environment": "gupta"
+    },
+    "meadows_2023-09-14-12-08-57": {
+        "size_bytes": 127682549263,
+        "duration": 455.477565,
+        "top_speed": 4.123069819005175,
+        "environment": "figure_8"
+    },
+    "trash_2023-09-14-12-03-21": {
+        "size_bytes": 2982121151,
+        "duration": 11.140745,
+        "top_speed": 0.009178208731365876,
+        "environment": "figure_8"
+    },
+    "slag_heap_skydio_2023-09-14-12-39-40": {
+        "size_bytes": 22017859658,
+        "duration": 79.811155,
+        "top_speed": 2.332908437263576,
+        "environment": "slag_heap"
+    },
+    "slag_heap_skydio_2023-09-14-12-32-13": {
+        "size_bytes": 52486395545,
+        "duration": 193.8395,
+        "top_speed": 2.2826766741289544,
+        "environment": "slag_heap"
+    },
+    "turnpike_2023-09-12-12-47-34": {
+        "size_bytes": 25550958439,
+        "duration": 94.050895,
+        "top_speed": 6.775951440166213,
+        "environment": "turnpike"
+    },
+    "figure_8_morning_2023-09-12-10-37-17": {
+        "size_bytes": 426263358504,
+        "duration": 1667.987779,
+        "top_speed": 11.941447867666964,
+        "environment": "gupta"
+    },
+    "turnpike_2023-09-12-12-42-49": {
+        "size_bytes": 64817819776,
+        "duration": 234.566175,
+        "top_speed": 8.361014645794215,
+        "environment": "turnpike"
+    },
+    "turnpike_2023-09-12-12-39-19": {
+        "size_bytes": 42760316613,
+        "duration": 177.88594799999998,
+        "top_speed": 10.90532853065563,
+        "environment": "turnpike"
+    },
+    "turnpike_2023-09-13-17-59-09": {
+        "size_bytes": 9387637437,
+        "duration": 34.631924,
+        "top_speed": 0.04797502016747057,
+        "environment": "turnpike"
+    },
+    "gupta_2023-09-14-11-12-19": {
+        "size_bytes": 239806287291,
+        "duration": 936.782888,
+        "top_speed": 7.368989350107034,
+        "environment": "gupta"
+    },
+    "figure_8_morning_slow_2023-09-12-11-06-32": {
+        "size_bytes": 414798897724,
+        "duration": 1698.8340070000002,
+        "top_speed": 5.302534969449073,
+        "environment": "gupta"
+    },
+    "turnpike_flat_2023-09-12-13-38-55": {
+        "size_bytes": 13298181514,
+        "duration": 48.797024,
+        "top_speed": 0.035064821906495694,
+        "environment": "turnpike"
+    },
+    "rough_rider_2023-09-14-12-57-00": {
+        "size_bytes": 83581618263,
+        "duration": 779.974653,
+        "top_speed": 10.668376446589498,
+        "environment": "rough_rider"
+    },
+    "turnpike_flat_2023-09-12-13-08-55": {
+        "size_bytes": 28624454954,
+        "duration": 112.413587,
+        "top_speed": 10.047264994669806,
+        "environment": "turnpike"
+    },
+    "turnpike_flat_2023-09-12-13-41-45": {
+        "size_bytes": 20724143,
+        "duration": 0.563705,
+        "top_speed": 0.03343070825038932,
+        "environment": "turnpike"
+    },
+    "turnpike_flat_2023-09-12-13-40-02": {
+        "size_bytes": 2515262892,
+        "duration": 13.868139,
+        "top_speed": 0.0,
+        "environment": "turnpike"
+    },
+    "turnpike_2023-09-13-18-09-45": {
+        "size_bytes": 73221624772,
+        "duration": 270.274554,
+        "top_speed": 9.69646246110112,
+        "environment": "turnpike"
+    },
+    "turnpike_flat_2023-09-12-14-16-06": {
+        "size_bytes": 18003291413,
+        "duration": 73.095394,
+        "top_speed": 6.325885332548692,
+        "environment": "turnpike"
+    },
+    "turnpike_2023-09-13-18-37-40": {
+        "size_bytes": 75886030331,
+        "duration": 278.885692,
+        "top_speed": 8.120652869621582,
+        "environment": "turnpike"
+    },
+    "turnpike_skydio_2023-09-14-13-57-56": {
+        "size_bytes": 19507121320,
+        "duration": 70.015603,
+        "top_speed": 10.566829865365106,
+        "environment": "turnpike"
+    },
+    "sam_loop_2023-09-27-13-04-54": {
+        "size_bytes": 266120813039,
+        "duration": 1042.8256800000001,
+        "top_speed": 10.138548283069206,
+        "environment": "figure_8"
+    },
+    "turnpike_to_gupta_flat_2023-09-12-14-31-21": {
+        "size_bytes": 61735930478,
+        "duration": 238.715328,
+        "top_speed": 4.633567235726226,
+        "environment": "turnpike"
+    },
+    "turnpike_warehouse_2023-09-14-14-05-14": {
+        "size_bytes": 10944873821,
+        "duration": 39.427554,
+        "top_speed": 4.599759751768287,
+        "environment": "turnpike"
+    },
+    "turnpike_warehouse_2023-09-13-19-03-05": {
+        "size_bytes": 85694228237,
+        "duration": 306.49673700000005,
+        "top_speed": 10.259217051773472,
+        "environment": "turnpike"
+    },
+    "turnpike_2023-09-13-18-42-57": {
+        "size_bytes": 149947737551,
+        "duration": 576.21464,
+        "top_speed": 9.792890518476328,
+        "environment": "turnpike"
+    },
+    "turnpike_skydio_2023-09-13-18-00-11": {
+        "size_bytes": 102480373628,
+        "duration": 369.210952,
+        "top_speed": 14.992933681811055,
+        "environment": "turnpike"
+    },
+    "warehouse_gupta_2023-09-13-16-23-26": {
+        "size_bytes": 13433290729,
+        "duration": 47.76738,
+        "top_speed": 4.299400473526804,
+        "environment": "gupta"
+    },
+    "warehouse_gupta_2023-09-13-16-27-05": {
+        "size_bytes": 1286337953,
+        "duration": 4.932477,
+        "top_speed": 66.86484871553212,
+        "environment": "gupta"
+    },
+    "turnpike_2023-09-13-18-15-03": {
+        "size_bytes": 185702040978,
+        "duration": 732.435558,
+        "top_speed": 15.006556079340918,
+        "environment": "turnpike"
+    },
+    "warehouse_gupta_skydio_2023-09-13-16-44-00": {
+        "size_bytes": 8408251305,
+        "duration": 31.21,
+        "top_speed": 0.0412332107955004,
+        "environment": "gupta"
+    },
+    "turnpike_2023-09-12-12-53-32": {
+        "size_bytes": 243424413492,
+        "duration": 872.738564,
+        "top_speed": 9.900667525933606,
+        "environment": "turnpike"
+    },
+    "warehouse_to_fence_2023-09-12-10-19-17": {
+        "size_bytes": 23253375267,
+        "duration": 84.466614,
+        "top_speed": 8.837280956078335,
+        "environment": "gupta"
+    },
+    "turnpike_flat_2023-09-12-13-11-44": {
+        "size_bytes": 204085052803,
+        "duration": 804.8333439999999,
+        "top_speed": 11.44676904262136,
+        "environment": "turnpike"
+    },
+    "turnpike_2023-09-14-13-20-40": {
+        "size_bytes": 213058055869,
+        "duration": 757.64259,
+        "top_speed": 8.369570440496227,
+        "environment": "turnpike"
+    },
+    "turnpike_flat_2023-09-12-14-21-03": {
+        "size_bytes": 136147433761,
+        "duration": 552.768143,
+        "top_speed": 10.007126746953952,
+        "environment": "turnpike"
+    },
+    "warehouse_gupta_skydio_2023-09-13-16-45-20": {
+        "size_bytes": 43545163438,
+        "duration": 157.965049,
+        "top_speed": 9.352195877020455,
+        "environment": "gupta"
+    },
+    "warehouse_gupta_2023-09-13-16-52-58": {
+        "size_bytes": 54369082370,
+        "duration": 197.853811,
+        "top_speed": 6.4419551360284775,
+        "environment": "gupta"
+    },
+    "turnpike_warehouse_2023-09-14-14-07-12": {
+        "size_bytes": 88793702209,
+        "duration": 341.541478,
+        "top_speed": 9.613945781098415,
+        "environment": "turnpike"
+    },
+    "warehouse_gupta_2023-09-13-16-28-57": {
+        "size_bytes": 150574549048,
+        "duration": 577.4626,
+        "top_speed": 8.868867907765404,
+        "environment": "gupta"
+    },
+    "turnpike_flat_2023-09-12-13-42-26": {
+        "size_bytes": 489780481402,
+        "duration": 1939.530338,
+        "top_speed": 10.436500234397393,
+        "environment": "turnpike"
+    }
+}

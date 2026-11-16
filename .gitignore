@@ -1,0 +1,35 @@
+*.csv
+*.jpg
+*.jpeg
+*.png
+*.tif
+
+__pycache__
+
+# Shared, manually authored ego-mask asset (not generated dataset imagery)
+!/data_generation/assets/masks/tartan_ego_mask.png
+
+# README figures
+!/assets/*.png
+!/assets/*.jpg
+
+# Demo example RGB-D frames
+!/examples/*/*/*.png
+
+# CAT package installation and outputs
+*.egg-info/
+build/
+dist/
+.venv/
+logs/
+/data/
+cat/logs/
+cat/outputs/
+wandb/
+
+# Data-generation outputs and downloaded model weights
+/data_generation/dataset_raw/
+/data_generation/dataset_processed/
+/checkpoints/
+/data_generation/checkpoints/
+cat/embedding_generation/saved_embeddings/*

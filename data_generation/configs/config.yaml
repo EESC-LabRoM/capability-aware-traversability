@@ -1,0 +1,203 @@
+# dataset file naming, cat's train.yaml data.ego_manifest_name must match.
+data_format:
+  ego_manifest_name: "ego_mask.json"                # ego exclusion manifest filename.
+  positive_mask_prefix: "positive_"                 # positive-mask filename prefix.
+  cat_csv_name: "cat_data.csv"                      # merged cat training csv, written in the processed root.
+  scores_dir: "scores"                              # robot terrain-score yamls, inside the processed root.
+
+cat_export:
+  path_columns:                                    # sequence-relative paths rebased in the merged CSV.
+    - "rgb_img_name"
+    - "depth_img_name"
+    - "trajectory_img_name"
+    - "positive_mask_name"
+  sequence_column: "source_bag"
+  scores_column: "scores_yaml"
+  training_csv: "dataset_processed/cat_data.csv"     # relative to data_generation/; absolute paths also work.
+
+device: "cuda"                                      # inference device, cpu fallback without cuda.
+
+# shared mask paths relative to data_generation/.
+ego_masks:
+  tartan: "assets/masks/tartan_ego_mask.png"        # tartan ego mask. white=ignored, black=outside robot.
+
+# text-guided object detection.
+grounding_dino:
+  model_id: "IDEA-Research/grounding-dino-base"     # hugging face model identifier.
+  box_threshold: 0.20                               # minimum detection confidence.
+  text_threshold: 0.20                              # minimum text-token confidence.
+  step_positive: 400                                # frames between detection prompts.
+
+# image segmentation and video propagation.
+sam2:
+  checkpoint: "./checkpoints/sam2.1_hiera_large.pt" # local model weights.
+  config: "configs/sam2.1/sam2.1_hiera_l.yaml"      # sam 2 architecture configuration.
+
+prompts:
+  mode: "positive"                                  # labeling mode.
+  positive:
+    - "ground"
+    - "path"
+    - "dirt"
+    - "floor"
+    - "grass"
+    - "pavement"
+    - "road"
+    - "gravel"
+    - "sand"
+    - "stair"
+    - "street"
+    - "sidewalk"
+    - "crosswalk"
+    - "track"
+    - "parking"
+    - "stairs"
+    - "curb"
+    - "concrete floor"
+    - "asphalt"
+    # tools and trash are not default terrain classes.
+
+# grounding sam labeling and export.
+processing:
+  video_prompt_type: "mask"                         # sam propagation prompt representation.
+  use_trajectory_points: true                       # use trajectory pixels as positive sam prompts.
+  num_trajectory_points: 10                         # maximum trajectory points per detection box.
+  max_occupancy_ratio: 0.90                         # clear masks exceeding this image coverage.
+  max_hole_size: 15000                              # maximum hole area to fill (px).
+  max_island_size: 15000                            # maximum island area to remove (px).
+  batch_size: 400                                   # video frames per processing batch.
+  start_frame: 0                                    # first frame index to process.
+  save_json: false                                  # export object annotations as json.
+  save_npy: false                                   # export instance masks as numpy arrays.
+  human_in_the_loop: true                           # enable interactive mask review.
+  save_visualization: true                          # save label overlays.
+  hil_score_threshold: 0.8                         # minimum confidence before human review.
+  hil_iou_threshold: 0.90                           # minimum temporal IoU before human review.
+  hil_diff_threshold: 0.10                          # minimum relative mask change before human review.
+  max_images: null                                  # maximum frames to process, null means unlimited.
+
+# raw dataset extraction and trajectory projection.
+bag_processing:
+  output_dataset_dir: "dataset_processed"           # root directory for processed sequences.
+  save_trajectory_mask: true                        # export projected trajectory masks.
+  save_positive_masks: true                         # export initial positive masks for ros bags.
+  save_depth: true                                  # export depth images.
+  min_dist: 0.0                                     # minimum travel between saved frames (m).
+  black_mask_depth_threshold: -1.0                  # force empty masks below this mean depth (m), <=0 disables.
+  tf_topics: ["/tf", "/tf_static"]                  # transform topics in ros bags.
+  global_frame: "vehicle"                           # robot base frame used for trajectory transforms.
+  fallback_camera_frame: "multisense/head"          # camera frame when calibration omits it.
+  # ros bag topics, masks require robot-base-to-camera tf.
+  ros_topics:
+    rgb_image: null                                 # required rgb image topic.
+    depth_image: null                               # depth topic, required for trajectory masks.
+    odometry: null                                  # required odometry topic.
+
+  robot:
+    width: 0.3                                      # full robot width (m).
+
+  trajectory:
+    horizon_sec: 5.0                                # trajectory horizon (s).
+    start_offset: 0.0                               # trajectory time offset (s).
+
+  processing:
+    tf_buffer_duration: 120.0                       # tf buffer duration (s).
+    frame_timeout_sec: 2                            # per-frame processing timeout (s).
+    max_images: null                                # maximum saved frames, null means unlimited.
+    min_mean_depth: 0                               # skip frames below this mean depth (m), 0 disables.
+
+# tartandrive 2.0 left camera calibration, extrinsics are child poses in their parent frame.
+tartan_calibration:
+  image_shape: [544, 1024]                          # calibrated rgb size (height, width px).
+  camera_matrix:                                    # rectified left camera intrinsics at image_shape (px).
+    - [477.6049499511719, 0.0, 499.5]
+    - [0.0, 477.6049499511719, 252.0]
+    - [0.0, 0.0, 1.0]
+  vehicle_from_head:                                # multisense head in the vehicle frame.
+    translation_m: [-0.0949, 0.0641, -0.136]        # x, y, z (m).
+    quaternion_xyzw: [-0.0119, 0.1131, 0.0003, 0.9935] # orientation, scalar-last (x, y, z, w).
+  head_from_left_optical:                           # left optical frame in the multisense head frame.
+    translation_m: [0.005, 0.105, 0.0]              # x, y, z (m).
+    quaternion_xyzw: [-0.5, 0.5, -0.5, 0.5]         # orientation, scalar-last (x, y, z, w).
+
+# processed image and supervision formats.
+segformer:
+  model_id: "nvidia/mit-b0"                        # pretrained segformer backbone.
+  total_epochs: 20                                  # maximum training epochs.
+  batch_size: 8                                     # training batch size.
+  learning_rate: 6.0e-5                             # adamw learning rate.
+  early_stopping: true                              # stop when validation loss stalls.
+  patience: 3                                       # non-improving validation epochs before stopping.
+  ignore_index: 255                                 # label excluded from the loss.
+  image_extensions: [".jpg", ".png", ".jpeg"]       # supported training rgb formats.
+  mask_extensions: [".jpg", ".png", ".tif"]         # supported training label formats.
+  max_hole_size: 35000                              # maximum hole area to fill (px).
+  max_island_size: 5000                              # maximum island area to remove (px).
+  max_component_height_ratio: 0.6                   # maximum component height as an image fraction.
+
+# input validation and diagnostic limits.
+validation:
+  image_extensions: [".png", ".jpg", ".jpeg"]       # supported raw tartan rgb formats.
+  odom_time_tolerance: 0.1                          # maximum rgb-to-odometry time difference (s).
+  processed_file_suffixes:
+    - ".csv"
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".tif"
+    - ".tiff"
+  max_listed_topics: 15                             # topic names shown in bag diagnostics.
+  # recovery guidance for invalid tartan inputs.
+  tartan_remediation:
+    " Download this TartanDrive trajectory again from Download Datasets, or restore the missing/corrupt files before processing."
+
+# numerical tolerances for transform geometry.
+geometry:
+  quaternion_epsilon: 8.881784197001252e-16         # near-zero quaternion threshold.
+  quaternion_norm_tolerance: 1.0e-5                 # allowed squared-norm error.
+
+downloads:
+  wayfast:
+    repository_id: "CAT-IROS-2026/wayfast_ts_dataset"# processed session repository.
+  tartandrive:
+    required_components:                            # paths below each trajectory, downloaded in this order.
+      - "image_left_color.tar"
+      - "full_cloud.tar"
+      - "gps_odom/odometry.npy"
+      - "gps_odom/timestamps.txt"
+      - "data_extraction.log"
+
+# raw ros image encoding definitions.
+image_decoding:
+  # numpy dtype code and channel count.
+  raw_encodings:
+    rgb8: ["u1", 3]
+    bgr8: ["u1", 3]
+    rgba8: ["u1", 4]
+    bgra8: ["u1", 4]
+    mono8: ["u1", 1]
+    mono16: ["u2", 1]
+    8UC1: ["u1", 1]
+    8UC2: ["u1", 2]
+    8UC3: ["u1", 3]
+    8UC4: ["u1", 4]
+    8SC1: ["i1", 1]
+    16UC1: ["u2", 1]
+    16SC1: ["i2", 1]
+    32SC1: ["i4", 1]
+    32FC1: ["f4", 1]
+    64FC1: ["f8", 1]
+    bayer_rggb8: ["u1", 1]
+    bayer_bggr8: ["u1", 1]
+    bayer_gbrg8: ["u1", 1]
+    bayer_grbg8: ["u1", 1]
+  bayer_to_bgr:
+    bayer_rggb8: "COLOR_BAYER_BG2BGR"
+    bayer_bggr8: "COLOR_BAYER_RG2BGR"
+    bayer_gbrg8: "COLOR_BAYER_GR2BGR"
+    bayer_grbg8: "COLOR_BAYER_GB2BGR"
+  bayer_to_gray:
+    bayer_rggb8: "COLOR_BAYER_BG2GRAY"
+    bayer_bggr8: "COLOR_BAYER_RG2GRAY"
+    bayer_gbrg8: "COLOR_BAYER_GR2GRAY"
+    bayer_grbg8: "COLOR_BAYER_GB2GRAY"

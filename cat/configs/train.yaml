@@ -1,0 +1,137 @@
+# training configuration for the cat decoder, saved with checkpoints.
+
+# hydra defaults, cat.train writes its own run log.
+defaults:
+  - _self_
+  - override hydra/job_logging: none
+  - override hydra/hydra_logging: none
+
+seed: 42                                            # random seed for all rngs.
+task_name: train                                    # run folder under paths.log_dir.
+tag: default                                        # run subfolder under task_name.
+
+# repository-root based paths, independent of the working directory.
+paths:
+  root_dir: ${cat_root:}                            # repository root.
+  cat_dir: ${paths.root_dir}/cat                    # cat project directory.
+  data_dir: ${paths.root_dir}/data_generation/dataset_processed # data_generation output.
+  embeddings_dir: ${paths.cat_dir}/embedding_generation/saved_embeddings # embedding cache root.
+  log_dir: ${paths.cat_dir}/logs                    # training run root.
+
+data:
+  embeddings_path: ${paths.embeddings_dir}/dino3_rgb_depth_224x224_fp16/embeddings.npy # cached training embeddings.
+  data_csv: ${paths.data_dir}/cat_data.csv          # merged csv from data_generation export.
+  data_dir: ${paths.data_dir}                       # root directory for csv mask paths.
+  semantic_maps_dir: null                           # clipseg maps, null means <embeddings dir>/semantic_maps.
+  resolution: [224, 224]                            # training resolution (h, w).
+  val_split: 0.3                                    # validation fraction.
+  num_workers: 8                                    # dataloader workers.
+  preload_embeddings: false                         # load embeddings into ram instead of mmap.
+  ego_manifest_name: "ego_mask.json"                # must match generation data_format.ego_manifest_name.
+  # depth clip [min, max] (m), upper bound at the largest range recorded by each sensor.
+  depth_clip_by_sensor:
+    grandtour: [0.3, 20.0]                          # intel realsense d435i.
+    ts: [0.3, 20.0]                                 # recorded depth reaches 20 m.
+    tartan: [1.0, 30.0]                             # full_cloud lidar projected into the left camera.
+    terrasentia: [0.3, 15.0]                        # recorded depth reaches 15 m.
+  # depth below this fraction of the 224x224 input after min-pooling is treated as missing (zero input).
+  depth_min_valid_fraction: 0.02
+
+robots:
+  # VLM score YAML robot labels mapped to internal kinematic names.
+  name_map:
+    "TerraSentia (EarthSense)": wheeled
+    "ANYmal-D (ANYbotics)": quadruped
+    "Roomba (iRobot)": differential
+    "Yamaha Viking (ATV)": ATV
+  order: [wheeled, quadruped, differential, ATV]    # robot order in cost tensors.
+  traversability_threshold: 0.4                     # expected traversability below this is negative.
+  # sensor token of the sequence name mapped to the robot that recorded its trajectories, selects which robot each
+  # sequence's paths are scored against in the ranking metrics.
+  recorded_by:
+    grandtour: quadruped                            # anymal-d.
+    ts: wheeled                                     # wayfast platform.
+    terrasentia: wheeled                            # terrasentia.
+    tartan: ATV                                     # yamaha viking atv.
+
+# CLIPSeg terrain classes; keep VLM score entries in this order.
+# Save external VLM scores to ${paths.data_dir}/scores/<sequence>.yaml.
+# The traversability values below are example priors, not per-robot VLM outputs.
+# Traversability 1.0 = traversable, 0.0 = impassable.
+prompts:
+  - text: "a photo of grass"
+    traversability: 0.90
+  - text: "a photo of pavement"
+    traversability: 1.00
+  - text: "a photo of dirt and gravel"
+    traversability: 0.70
+  - text: "a photo of rocks"
+    traversability: 0.35
+  - text: "a photo of vegetation"
+    traversability: 0.15
+  - text: "a photo of a building wall"
+    traversability: 0.05
+  - text: "a photo of water"
+    traversability: 0.30
+  - text: "a photo of stairs"
+    traversability: 0.00
+  - text: "a photo of snow"
+    traversability: 0.60
+  - text: "a photo of the sky"
+    traversability: 0.00
+
+model:
+  input_dim: 384                                    # internal spade block dimension.
+  raw_embed_dim: 768                                # raw dinov3 vit-b embedding dimension.
+  feature_dim: 64                                   # output feature dimension (d).
+  spade_hidden: 128                                 # hidden channels in spade conv layers.
+  spade_norm: "batch"                               # spade normalization: batch or instance.
+  inter_block_dropout: 0.0                          # dropout2d between spade blocks, 0 disables.
+  depth_dropout: 0.1                                # probability of zeroing depth features.
+
+loss:
+  temperature: 0.07                                 # infonce temperature (tau).
+  ema_momentum: 0.99                                # ema momentum of robot prototypes.
+  omega_mask: 0.05                                  # weight of the mask loss term.
+  n_pos_traj: 256                                   # positives for the trajectory term.
+  n_neg_traj: 1024                                  # negatives for the trajectory term.
+  n_pos_mask: 512                                   # positives for the mask term.
+  n_neg_mask: 1024                                  # negatives for the mask term.
+  grade_weight: 0.2                                 # graded traversability regression weight, 0 disables.
+
+training:
+  epochs: 50                                        # maximum training epochs.
+  batch_size: 128                                   # samples per batch.
+  learning_rate: 3.0e-4                             # adamw learning rate.
+  weight_decay: 1.0e-2                              # adamw weight decay.
+  amp: true                                         # mixed precision (fp16 forward/backward).
+  compile: true                                     # torch.compile the decoder.
+  deterministic: false                              # deterministic kernels, slower.
+  resume: null                                      # checkpoint path to resume from.
+  # learning-rate schedule, step also needs step_size and gamma.
+  scheduler:
+    type: "cosine"                                  # cosine or step.
+    min_lr: 1.0e-6                                  # cosine minimum learning rate.
+    step_size: 10                                    # epochs between step scheduler decays.
+    gamma: 0.1                                       # step scheduler learning-rate multiplier.
+  early_stopping:
+    enabled: true                                   # stop when validation loss stalls.
+    patience: 10                                    # epochs without improvement.
+    min_delta: 0.0001                               # minimum validation loss improvement.
+
+evaluation:
+  ranking_bins: 4096                                # score histogram bins over the cosine range [-1, 1] for path ranking.
+
+wandb:
+  project: "capability-aware-traversability"        # wandb project.
+  name: null                                        # run name, null lets wandb choose.
+  mode: "online"                                    # online, offline or disabled.
+
+hydra:
+  run:
+    dir: ${paths.log_dir}/${task_name}/${tag}/${now:%Y-%m-%d_%H-%M-%S} # <log_dir>/<task_name>/<tag>/<timestamp>.
+  sweep:
+    dir: ${paths.log_dir}/${task_name}/${tag}/multiruns/${now:%Y-%m-%d_%H-%M-%S} # multirun root.
+    subdir: ${hydra.job.num}                        # per-job subfolder.
+  job:
+    chdir: false                                    # keep the working directory.

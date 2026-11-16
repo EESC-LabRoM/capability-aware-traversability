@@ -1,0 +1,44 @@
+# embedding cache generation and verification. paths, data and seed come from train.yaml.
+
+throughput:
+  frames_per_second: 176                            # throughput used for eta estimates.
+
+checksums:
+  block_rows: 4096                                  # rows per sha256 block.
+
+disk:
+  warn_fraction: 0.8                                # warn above this share of free disk.
+
+dtypes: [float16, float32]                          # allowed cache storage dtypes.
+
+# fingerprint fields that must match to resume a cache.
+essential_fingerprint_fields:
+  - backbone_id
+  - embed_dim
+  - patch_grid
+  - resolution
+  - token_selection
+  - dtype
+  - rgb_mean
+  - rgb_std
+  - use_depth
+  - depth_stats_sha1
+  - resize
+  - num_frames
+  - dataset_id
+
+# cache arrays. patch_grid adds spatial axes, null stores frame vectors.
+expected_arrays:
+  embeddings.npy: patch_grid                        # rgb patch features.
+  cls_tokens.npy: null                              # rgb cls tokens.
+  depth_embeddings.npy: patch_grid                  # depth patch features, only with use_depth.
+
+verification:
+  sampled_rows: 64                                  # random rows checked, plus first and last.
+  sample_seed: 0                                    # row sampling seed.
+
+# generate_embeddings.py, cache folder and csv come from train.yaml data.
+outdoor:
+  batch_size: 64                                    # extraction batch size.
+  model: dino3                                      # backbone name.
+  use_depth: true                                   # also extract depth embeddings.

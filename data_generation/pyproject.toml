@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "traversability-data-generation"
+version = "0.1.0"
+description = "Offline dataset acquisition, trajectory processing, and label generation"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+  "numpy>=1.26,<2",
+  "scipy>=1.11",
+  "opencv-python>=4.8,<4.12",
+  "Pillow>=10",
+  "PyYAML>=6",
+  "rosbags>=0.10,<0.12",
+  "huggingface-hub>=0.24,<1",
+  "zarr>=2.16,<3",
+]
+
+[project.optional-dependencies]
+models = [
+  "torch>=2.5.1",
+  "torchvision>=0.20.1",
+  "transformers>=4.48,<5",
+  "tqdm>=4.65",
+  "sam2>=1.1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["data_generation*"]
+
+[tool.uv.extra-build-dependencies]
+sam2 = [{ requirement = "torch", match-runtime = true }]
